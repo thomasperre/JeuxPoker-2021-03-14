@@ -1,0 +1,117 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jeuxpoker;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ *
+ * @author thomas
+ */
+public class Membre extends Personne{
+    
+    //attributs
+    private int noMembre;
+    private static int nextNoMembre=0;
+    private String avatar;
+    private String surnom;
+    private String email;
+    private int nbCredit;
+    private Set<Message> messages= new HashSet(0);
+    private Set<Partie>parties= new HashSet(0);
+    private Set<Commande>commandes= new HashSet(0);
+    private Set<Membre>demandeur= new HashSet(0);
+    private Set<Membre>receveur= new HashSet(0);
+
+
+    //constructeurs
+
+    public Membre(String nom, String prenom) {
+        super(nom, prenom);
+        noMembre=nextNoMembre;
+        nextNoMembre++;
+    }
+
+    public Membre( String avatar, String surnom, String email, int nbCredit, String nom, String prenom) {
+        super(nom, prenom);
+        
+        this.avatar = avatar;
+        this.surnom = surnom;
+        this.email = email;
+        this.nbCredit = nbCredit;
+        noMembre=nextNoMembre;
+        nextNoMembre++;
+    }
+
+    public int getNoMembre() {
+        return noMembre;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getSurnom() {
+        return surnom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getNbCredit() {
+        return nbCredit;
+    }
+
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public Set<Partie> getParties() {
+        return parties;
+    }
+
+    public Set<Commande> getCommandes() {
+        return commandes;
+    }
+
+      
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setSurnom(String surnom) {
+        this.surnom = surnom;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNbCredit(int nbCredit) {
+        this.nbCredit = nbCredit;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
+    }
+
+    public void setParties(Set<Partie> parties) {
+        this.parties = parties;
+    }
+
+    public void setCommandes(Set<Commande> commandes) {
+        this.commandes = commandes;
+    }
+    
+    
+
+    
+    
+    
+}
