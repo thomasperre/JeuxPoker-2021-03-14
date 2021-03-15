@@ -16,8 +16,8 @@ import java.util.Set;
 public class Billet {
     
     //attributs
-    private static int nextNoBillet=0;
-    private int noBillet=0;
+    private static int nextNoBillet=1;
+    private int noBillet=1;
     private Date dateBillet;
     private Set<Message> messages= new HashSet(0);
     
@@ -79,6 +79,9 @@ public class Billet {
         this.messages = messages;
     }
     
-
+public void afficher(){
+        System.out.println(this.noBillet +"-"+ this.dateBillet+"-"+ this.messages );
+        
+    }
     
 }

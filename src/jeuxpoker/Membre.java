@@ -16,7 +16,7 @@ public class Membre extends Personne{
     
     //attributs
     private int noMembre;
-    private static int nextNoMembre=0;
+    private static int nextNoMembre=1;
     private String avatar;
     private String surnom;
     private String email;
@@ -110,8 +110,13 @@ public class Membre extends Personne{
     }
     
     
-
+public void afficher(){
+        System.out.println(noMembre+"-"+this.avatar 
+        +"-"+this.surnom +"-"+ this.email+"-"+ this.nbCredit );
+        super.afficher();
+    }
     
+
     
     
 }

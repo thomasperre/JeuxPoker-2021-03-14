@@ -15,7 +15,7 @@ import java.util.Set;
 public class Produits {
        //attributs
     private int noProduit;
-    private static int nextNoProduit=0;
+    private static int nextNoProduit=1;
     private String nomProduit;
     private int prixProduit;
     private String description;
@@ -84,5 +84,8 @@ public class Produits {
         return noProduit;
     }
     
-    
+     public void afficher(){
+        System.out.println(this.noProduit +"-"+ this.nomProduit+"-"+ this.prixProduit+"-"+ this.description);
+        
+    }
 }

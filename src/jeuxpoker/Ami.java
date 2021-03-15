@@ -55,5 +55,8 @@ public class Ami {
         this.membre = membre;
     }
 
-   
+   public void afficher(){
+        System.out.println(this.dateDemande +"-"+ this.EtatDemande+"-"+ this.membre );
+        
+    }
 }

@@ -75,5 +75,8 @@ public class Details {
         this.produits = produits;
     }
     
-    
+    public void afficher(){
+        System.out.println(this.prixAchat +"-"+ this.qutAchat);
+        
+    }
 }

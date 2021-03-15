@@ -14,7 +14,8 @@ import java.util.Set;
  */
 public class Admin extends Personne {
        //attributs
-    private int noAdmin;
+    private int noAdmin=1;
+    private static int nextNoAdmin=1;
     private Set<Message> messages=new HashSet(0);;
     
     
@@ -23,13 +24,16 @@ public class Admin extends Personne {
 
     public Admin(String nom, String prenom) {
         super(nom, prenom);
-        
+        noAdmin=nextNoAdmin;
+        nextNoAdmin++;
     }
 
     public Admin(String nom, String prenom, int noAdmin, Set<Message> messages) {
         super(nom, prenom);
         this.noAdmin = noAdmin;
         this.messages=messages;
+        noAdmin=nextNoAdmin;
+        nextNoAdmin++;
     }
     
     
@@ -74,6 +78,9 @@ public class Admin extends Personne {
         this.prenom = prenom;
     }
 
-    
+    public void afficher(){
+        System.out.println( this.noAdmin +"-"+this.messages );
+        super.afficher();
+    }
     
 }

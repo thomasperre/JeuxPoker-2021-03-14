@@ -53,7 +53,10 @@ public class ModeDeJeu {
     }
 
    
-
+public void afficher(){
+        System.out.println(this.codeMode +"-"+ this.nomMode);
+        
+    }
 
 
 

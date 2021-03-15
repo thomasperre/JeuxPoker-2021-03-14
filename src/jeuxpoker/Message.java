@@ -117,4 +117,9 @@ public class Message {
     
      //méthode
     
+    public void afficher(){
+        System.out.println(this.reponseAdmin +"-"+ this.admin);
+        
+    }
+    
 }

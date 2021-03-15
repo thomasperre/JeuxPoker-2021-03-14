@@ -73,6 +73,9 @@ public class Commande {
     }
     
     
-    
+    public void afficher(){
+        System.out.println(this.noCommande +"-"+ this.produits+"-"+ this.dateCommande );
+        
+    }
     
 }

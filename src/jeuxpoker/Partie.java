@@ -64,6 +64,9 @@ public class Partie {
         this.membres = membres;
     }
 
-    
+    public void afficher(){
+        System.out.println(this.noPartie +"-"+ this.datePartie+"-"+ this.modeDeJeu);
+        
+    }
     
 }

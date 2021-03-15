@@ -54,5 +54,8 @@ public class Stats {
         this.membre = membre;
     }
 
-    
+    public void afficher(){
+        System.out.println(this.cumulGain);
+        
+    }
 }
