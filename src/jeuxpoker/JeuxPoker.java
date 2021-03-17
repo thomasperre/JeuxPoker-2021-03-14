@@ -72,17 +72,28 @@ public class JeuxPoker {
         Message msg8 = new Message("messageMembre message8", "reponseAdmin message8", mb4, bn5, admin4);
 
         Set<Message> messages = new HashSet(0);
-        messages.add(msg7);
-        admin3.setMessages(messages);
-        messages.clear();
-        
-        Message.afficherMessage(messages);
-        
         messages.add(msg3);
-        messages.add(msg8);
-        
-        
+        admin3.setMessages(messages);
+        mb3.setMessages(messages);
+        bn1.setMessages(messages);
+        Message.afficherMessage(bn1.getMessages());
+        messages.clear();
 
+        messages.add(msg7);
+        admin2.setMessages(messages);
+        mb4.setMessages(messages);
+        bn3.setMessages(messages);
+        Message.afficherMessage(messages);
+
+        messages.clear();
+
+        messages.add(msg8);
+        admin4.setMessages(messages);
+        mb4.setMessages(messages);
+        bn5.setMessages(messages);
+
+        Message.afficherMessage(messages);
+        messages.clear();
         System.out.println("/////////declaration amis//////////////////////////////////////////////////");
 
         //Déclaration ami

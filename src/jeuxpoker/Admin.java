@@ -13,26 +13,21 @@ import java.util.Set;
  * @author thomas
  */
 public class Admin extends Personne {
-       //attributs
-    private int noAdmin;
-    private static int nextNoAdmin=1;
-    private Set<Message> messages=new HashSet(0);
-    
-    
-    //constructeurs
-        
+    //attributs
 
+    private int noAdmin;
+    private static int nextNoAdmin = 1;
+    private Set<Message> messages = new HashSet(0);
+
+    //constructeurs
     public Admin(String nom, String prenom, Set<Message> messages) {
         super(nom, prenom);
-        this.messages=messages;
-        noAdmin=nextNoAdmin++;
-        
+        this.messages = messages;
+        noAdmin = nextNoAdmin++;
+
     }
-    
-    
+
     //getter-setter
-    
-   
     /**
      * @return the noAdmin
      */
@@ -71,9 +66,9 @@ public class Admin extends Personne {
         this.prenom = prenom;
     }
 
-    public void afficher(){
-        System.out.println( this.noAdmin +"-"+this.messages );
+    public void afficher() {
+        System.out.println(this.noAdmin + "-" + this.messages);
         super.afficher();
     }
-    
+
 }
