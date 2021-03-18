@@ -186,7 +186,7 @@ public class Membre extends Personne {
         return somme;
     }
 
-    @Override
+    
     public void afficher() {
         super.afficher();
         System.out.println("No membre: " + this.noMembre);
