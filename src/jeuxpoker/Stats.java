@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Stats {
     //attributs
-    private int cumulGain;
+    private double cumulGain;
     private Partie partie;
     private Membre membre;
     
@@ -19,14 +14,13 @@ public class Stats {
     public Stats(int cumulGain) {
         this.cumulGain = cumulGain;
     }
-    
-    
+        
     //getter-setter
 
     /**
      * @return the cumulGain
      */
-    public int getCumulGain() {
+    public double getCumulGain() {
         return cumulGain;
     }
 
@@ -35,8 +29,7 @@ public class Stats {
      */
     public void setCumulGain(int cumulGain) {
         this.cumulGain = cumulGain;
-    }
-    
+    }    
     
     public Partie getPartie() {
         return partie;

@@ -1,32 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import static jeuxpoker.utilitaires.retourDate;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Commande {
     //attributs
 
     private int noCommande;
     private Date dateCommande;
-    private Set<Produits> produits = new HashSet(0);
+    private Set<Details> details;
 
-    //constructeurs
-    public Commande() {
-    }
+    private Membre membre;
 
-    public Commande(int noCommande, Date dateCommande) {
-        this.noCommande = noCommande;
+    private static int nextNoCommande = 1;
+
+    public Commande(Date dateCommande, Membre membre) {
+        this.noCommande = nextNoCommande++;
         this.dateCommande = dateCommande;
+        this.membre = membre;
+        this.details = new HashSet();
+
     }
 
     //getter-setter
@@ -38,17 +37,32 @@ public class Commande {
     }
 
     /**
-     * @param noCommande the noCommande to set
-     */
-    public void setNoCommande(int noCommande) {
-        this.noCommande = noCommande;
-    }
-
-    /**
      * @return the dateCommande
      */
     public Date getDateCommande() {
         return dateCommande;
+    }
+
+    public Set<Details> getDetails() {
+        return details;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
+        if (this.membre != membre) {
+            Membre old = this.membre;
+            this.membre = membre;
+            if (membre != null) {
+                membre.ajoutCommande(this);
+            }
+            if (old != null) {
+                old.supprimerCommande(this);
+            }
+        }
     }
 
     /**
@@ -59,28 +73,47 @@ public class Commande {
     }
 
     public Set<Produits> getProduits() {
-        return produits;
-    }
+        Set<Produits> resultat = new HashSet();
 
-    public void setProduits(Set<Produits> produits) {
-        this.produits = produits;
-    }
-
-    public void afficher() {
-        System.out.println(this.noCommande + "-" + this.produits + "-" + this.dateCommande);
-
-    }
-
-    public void afficherProduits() {
-
-        this.getProduits().forEach(item -> {
-            System.out.println("Item: " + item.getNoProduit() + " | " + item.getNomProduit() + " | " + item.getDescription());
+        details.forEach(item -> {
+            resultat.add(item.getProduits());
         });
+        return resultat;
     }
 
-    public int totalCommande() {
-        int somme = this.getProduits().stream() .mapToInt( p -> p.getPrixProduit()) .sum();
-        
+    public void ajoutCommandeDetail(Details d) {
+        details.add(d);
+        d.setCommandes(this);
+    }
+
+    public void supprimerCommandeDetail(Details d) {
+        details.remove(d);
+        d.setCommandes(null);
+    }
+
+    public void afficherCommande() {
+        System.out.println("Commande No: " + this.noCommande + " du " + retourDate(this.dateCommande) + "");
+    }
+
+    public void afficherProduitsCommande() {
+
+        if (this.getDetails().size() > 0) {
+            System.out.println("********** Commande No: " + this.noCommande + " du " + retourDate(this.getDateCommande()) + " **********");
+            System.out.println("********** LISTE DES PRODUITS **********");
+            this.getDetails().forEach(item -> {
+                System.out.print("Produit no: " + item.getProduits().getNoProduit() + " | " + item.getProduits().getNomProduit() + " | " + item.getProduits().getDescription());
+                System.out.println(" | Prix achat: " + item.getPrixAchat() + " | Quantité: " + item.getQutAchat());
+            });
+        } else {
+//            System.out.println("********** No: " + this.noCommande + " du " + retourDate(this.getDateCommande()) + " **********");
+//            System.out.println("Aucun produit");
+        }
+    }
+
+    public double totalCommande() {
+
+        double somme = this.getDetails().stream().mapToDouble(p -> p.getPrixAchat()*p.getQutAchat()).sum();        
         return somme;
     }
+
 }

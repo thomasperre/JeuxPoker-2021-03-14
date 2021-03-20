@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import static jeuxpoker.utilitaires.retourDate;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Membre extends Personne {
 
@@ -23,11 +21,11 @@ public class Membre extends Personne {
     private String surnom;
     private String email;
     private int nbCredit;
-    private Set<Message> messages = new HashSet(0);
-    private Set<Partie> parties = new HashSet(0);
-    private Set<Commande> commandes = new HashSet(0);
-    private Set<Ami> demandeAmiEnAttente = new HashSet(0);
-    private Set<Ami> listeAmi = new HashSet(0);
+    private Set<Message> messages;
+    private List<Partie> parties;
+    private Set<Commande> commandes;
+    private Set<Ami> demandeAmiEnAttente;
+    private Set<Ami> listeAmi;
 
     //constructeurs
     public Membre(String avatar, String surnom, String email, String nom, String prenom) {
@@ -37,6 +35,12 @@ public class Membre extends Personne {
         this.email = email;
         this.nbCredit = NB_CREDIT_DEPART;
         noMembre = nextNoMembre++;
+
+        messages = new HashSet();
+        commandes = new HashSet();
+        parties = new ArrayList(0);
+        demandeAmiEnAttente = new HashSet(0);
+        listeAmi = new HashSet(0);
     }
 
     // Getter
@@ -64,12 +68,13 @@ public class Membre extends Personne {
         return messages;
     }
 
-    public Set<Partie> getParties() {
+    public List<Partie> getParties() {
         return parties;
     }
 
     public Set<Commande> getCommandes() {
         return commandes;
+
     }
 
     public Set<Ami> getDemandeAmiEnAttente() {
@@ -102,7 +107,7 @@ public class Membre extends Personne {
         this.messages = messages;
     }
 
-    public void setParties(Set<Partie> parties) {
+    public void setParties(List<Partie> parties) {
         this.parties = parties;
     }
 
@@ -119,52 +124,96 @@ public class Membre extends Personne {
     }
 
     // methodes
-    public void ajoutDemandeAmi(Ami mbReceveur) {
-
-        this.getDemandeAmiEnAttente().add(mbReceveur);
-//TODO : ajouter a l'autre bozo
-
+    public void afficherNewMembre() {
+        System.out.print("Nouveau membre: " + this.noMembre);
+        System.out.println(" | Nom, prénom: " + this.nom + " " + this.prenom);
     }
 
-    public void reponseDemandeAmi(Membre mbDemandeur, Membre mbReceveur, boolean reponseAmi) {
+    public void ajoutDemandeAmi(Ami mbReceveur) {
+        this.demandeAmiEnAttente.add(mbReceveur);
+    }
 
-        if (reponseAmi) {
-            // Ajouter l'ami
-            mbDemandeur.getDemandeAmiEnAttente();
-            mbReceveur.getDemandeAmiEnAttente();
+    public void supprimerDemandeAmi(Ami mbReceveur) {
+        this.demandeAmiEnAttente.remove(mbReceveur);
+    }
 
-            mbDemandeur.setListeAmi(listeAmi);
-            mbReceveur.setListeAmi(listeAmi);
+    public void ajoutAmi(Ami mbReceveur) {
+        this.listeAmi.add(mbReceveur);
+    }
 
-        } else {
-            mbDemandeur.getDemandeAmiEnAttente();
-            mbReceveur.getDemandeAmiEnAttente(); // retirer demande
-        }
-
+    public void supprimerAmi(Ami mbReceveur) {
+        this.listeAmi.remove(mbReceveur);
     }
 
     public void afficherAllAmis() {
-        System.out.println("/////////tous les amis//////////////////////////////////////////////////");
-        this.getListeAmi().forEach(item -> {
-            System.out.println("| " + item.getMembre().getSurnom() + "|");
-        });
+        if (this.getListeAmi().size() > 0) {
+            System.out.println("TOUS LES AMIS de " + this.nom + " " + this.prenom + " **********");
+
+            this.getListeAmi().forEach(item -> {
+                System.out.println("\tSurnom: " + item.getMembre().getSurnom() + "");
+            });
+        } else {
+            System.out.println("Liste ami vide pour " + this.nom + " " + this.prenom);
+        }
     }
 
     public void afficherAllDemandesEnAttente() {
-        System.out.println("/////////ALL demandes en attente//////////////////////////////////////////////////");
-        this.getDemandeAmiEnAttente().forEach(item -> {
-            System.out.println("| " + item.getMembre().getSurnom() + "|" + item.getDateDemande() + "|" + item.isEtatDemande());
-        });
+        if (this.getDemandeAmiEnAttente().size() > 0) {
+            System.out.println("TOUTES LES DEMANDES D'AMIS EN ATTENTE de " + this.nom + " " + this.prenom + " **********");
+
+            this.getDemandeAmiEnAttente().forEach(item -> {
+                System.out.print("\tSurnom: " + item.getMembre().getSurnom() + " | Date: " + retourDate(item.getDateDemande()));
+                System.out.println(" | État demande: " + item.isEtatDemande());
+            });
+        } else {
+            System.out.println("Aucune demande en attente pour " + this.nom + " " + this.prenom);
+        }
+    }
+
+    public void ajoutCommande(Commande newCommande) {
+        commandes.add(newCommande);
+        newCommande.setMembre(this);
+    }
+
+    public void supprimerCommande(Commande newCommande) {
+        commandes.remove(newCommande);
+        newCommande.setMembre(null);
     }
 
     public void afficherMesAchats() {
         System.out.println(this.getSurnom());
         this.getCommandes().forEach(item -> {
             System.out.println("No commande: " + item.getNoCommande() + " | " + item.getDateCommande());
-            item.getProduits().forEach(pdt -> {
-                System.out.println("Item: " + pdt.getNoProduit() + " | " + pdt.getNomProduit() + " | " + pdt.getDescription());
+            item.getDetails().forEach(pdt -> {
+                System.out.println("Item: " + pdt.getProduits().getNoProduit() + " | " + pdt.getProduits().getNomProduit() + " | " + pdt.getProduits().getDescription());
             });
         });
+    }
+
+    public void afficherTotalAchats() {
+        double somme = this.getCommandes().stream().mapToDouble(p -> p.totalCommande()).sum();
+
+        System.out.print("\t" + this.getSurnom());
+        System.out.println(" | Total : " + somme);
+    }
+
+    public void addPartie(Partie p) {
+        if (!parties.contains(p)) {
+            parties.add(p);
+            p.addMembre(this);
+        }
+    }
+
+    public void afficherPartie() {
+        if (this.getParties().size() > 0) {
+            System.out.println("Partie de " + this.nom + " " + this.prenom);
+
+            this.getParties().forEach(item -> {
+                System.out.println("\tPartie no: " + item.getNoPartie() + " en date du " + item.getDatePartie());
+            });
+        } else {
+            System.out.println("Liste partie vide pour " + this.nom + " " + this.prenom);
+        }
     }
 
     // Dérivée
@@ -180,15 +229,4 @@ public class Membre extends Personne {
         return this.getParties().size();
     }
 
-    public int totalAchats() {
-        int somme = this.getCommandes().stream().mapToInt(p -> p.totalCommande()).sum();
-
-        return somme;
-    }
-
-    @override
-    public void afficher() {
-        super.afficher();
-        System.out.println("No membre: " + this.noMembre);
-    }
 }

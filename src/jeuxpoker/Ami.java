@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 import java.util.Date;
+import static jeuxpoker.utilitaires.retourDate;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Ami {
     //attributs
@@ -50,8 +46,10 @@ public class Ami {
         this.membre = membre;
     }
 
-    public void afficher() {
-        System.out.println(this.dateDemande + "-" + this.EtatDemande + "-" + this.membre);
-
+    public void afficherDemandeAmi() {
+        System.out.print("Demande d'ami: " + this.membre.getNoMembre());
+        System.out.print(" | Nom, prénom: " + this.membre.getNom() + " " + this.membre.getPrenom());
+        System.out.print(" | Date: " + retourDate(this.dateDemande));
+        System.out.println(" | État demande: " + this.EtatDemande);
     }
 }

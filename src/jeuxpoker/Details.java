@@ -1,34 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Details {
-       //attributs
+    //attributs
+
     private double prixAchat;
     private int qutAchat;
     private Commande commandes;
     private Produits produits;
-    
-    
-    
-    //constructeurs
 
-    public Details(double prixAchat, int qutAchat) {
+    //constructeurs
+    public Details(Commande commandes, Produits produits, int qutAchat, double prixAchat) {
         this.prixAchat = prixAchat;
         this.qutAchat = qutAchat;
+        this.commandes = commandes;
+        this.produits = produits;
     }
-    
-    
-    
-    //getter-setter
 
+    //getter-setter
     /**
      * @return the prixAchat
      */
@@ -56,16 +48,6 @@ public class Details {
     public void setQutAchat(int qutAchat) {
         this.qutAchat = qutAchat;
     }
-    
-       
-
-    public Commande getCommandes() {
-        return commandes;
-    }
-
-    public void setCommandes(Commande commandes) {
-        this.commandes = commandes;
-    }
 
     public Produits getProduits() {
         return produits;
@@ -74,9 +56,19 @@ public class Details {
     public void setProduits(Produits produits) {
         this.produits = produits;
     }
-    
-    public void afficher(){
-        System.out.println(this.prixAchat +"-"+ this.qutAchat);
-        
+
+    public Commande getCommandes() {
+        return commandes;
     }
+
+    public void setCommandes(Commande commandes) {
+
+        this.commandes = commandes;
+    }
+     
+    public void afficherDetails() {
+        System.out.println("Prix achat: " + this.prixAchat + " | Quantité: " + this.qutAchat);
+
+    }
+
 }

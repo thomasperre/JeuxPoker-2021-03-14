@@ -1,211 +1,287 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class JeuxPoker {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    //Déclaration globalDate
+    public static Date globalDate = new Date();
 
-        //Déclaration date
-        Date date = new Date();
+    public static Map<Integer, Membre> listeMembres = new HashMap();
+    public static Map<Integer, Admin> listeAdmin = new HashMap();
+    public static Map<Integer, Billet> listeBillet = new HashMap();
+    public static Map<Integer, Message> listeMessages = new HashMap();
+    public static Map<Integer, Ami> listeAmis = new HashMap();
+    public static Map<Integer, Commande> listeCommandes = new HashMap();
+    public static Map<Integer, Produits> listeProduits = new HashMap();
+    public static Map<Integer, Details> listeDetail = new HashMap();
+    public static Map<Integer, Partie> listePartie = new HashMap();
 
-        //Déclaration Personne =>Personne is abstract donc on peut pas l'appeler
-        System.out.println("////////////////////declaration admin/////////////");
-        //Déclaration admin
-        Admin admin1 = new Admin("nomAdmin1", "prenomAdmin1", null);
-        Admin admin2 = new Admin("nomAdmin2", "prenomAdmin2", null);
-        Admin admin3 = new Admin("nomAdmin3", "prenomAdmin3", null);
-        Admin admin4 = new Admin("nomAdmin4", "prenomAdmin4", null);
-
-        admin1.afficher();
-        admin2.afficher();
-        admin3.afficher(); // affiche 2-null et  nomAdmin3-prenomAdmin3
-        admin4.afficher();
-        System.out.println("/////////declaration membre///////////////////////////////////////////");
-        //Déclaration membre
-
-        //String avatar, String surnom, String email, String nom, String prenom
-        Membre mb1 = new Membre("mb1.png", "Conquete", "mb1@java.ca", "nomMembre1", "prenomMembre1");
-        Membre mb2 = new Membre("mb2.png", "Guerre", "mb2@java.ca", "nomMembre2", "prenomMembre2");
-        Membre mb3 = new Membre("mb3.png", "Famine", "mb3@java.ca", "nomMembre3", "prenomMembre3");
-        Membre mb4 = new Membre("mb4.png", "Mort", "mb4@java.ca", "nomMembre4", "prenomMembre4");
-
-        mb1.setNbCredit(900);
-        mb1.afficher(); //affiche 1-null-null-null-0 et nomMembre1-prenomMembre1
-        mb2.afficher(); //affiche correctement
-        mb3.afficher(); //affiche 3-mb3.png-MB3-mb3@java.ca-3 et nomMembre3-prenomMembre3
-        mb4.afficher(); //affiche correctement
-
-        System.out.println("/////////declaration billet//////////////////////////////////////////////////");
-
-        //Déclaration billet
-        Billet bn1 = new Billet();
-        Billet bn2 = new Billet();
-        Billet bn3 = new Billet(date);
-        Billet bn4 = new Billet(date);
-        Billet bn5 = new Billet(date, null);
-        Billet bn6 = new Billet(date, null);
-
-        bn1.afficher(); // affiche 1-null-[]
-        bn2.afficher();// affiche 2-null-[]
-        bn3.afficher();// affiche 3-la date du moment-[]
-        bn4.afficher();// affiche 4-la date du moment-[]
-        bn5.afficher(); // affiche 5-la date du moment-[]
-        bn6.afficher();// affiche 6-la date du moment-[]
-
-        System.out.println("//////////declaration message///////////////////////////////////////////");
-        //Déclaration message
-
-        Message msg3 = new Message("messageMembre message3", "reponseAdmin message3", mb3, bn1, admin3);
-        Message msg7 = new Message("messageMembre message7", "reponseAdmin message7", mb4, bn3, admin2);
-        Message msg8 = new Message("messageMembre message8", "reponseAdmin message8", mb4, bn5, admin4);
-
-        Set<Message> messages = new HashSet(0);
-        messages.add(msg3);
-        admin3.setMessages(messages);
-        mb3.setMessages(messages);
-        bn1.setMessages(messages);
-        Message.afficherMessage(bn1.getMessages());
-        messages.clear();
-
-        messages.add(msg7);
-        admin2.setMessages(messages);
-        mb4.setMessages(messages);
-        bn3.setMessages(messages);
-        Message.afficherMessage(messages);
-
-        messages.clear();
-
-        messages.add(msg8);
-        admin4.setMessages(messages);
-        mb4.setMessages(messages);
-        bn5.setMessages(messages);
-
-        Message.afficherMessage(messages);
-        messages.clear();
-        System.out.println("/////////declaration amis//////////////////////////////////////////////////");
-
-        //Déclaration ami
-        Ami ami3 = new Ami(date, true, mb2);
-        Ami ami4 = new Ami(date, false, mb1);
-
-        mb1.afficher();
-
-        mb1.ajoutDemandeAmi(ami3);
-        mb1.ajoutDemandeAmi(ami4);
-
-        mb1.afficherAllAmis();
-        mb1.afficherAllDemandesEnAttente();
-
-        System.out.println("/////////declaration stats//////////////////////////////////////////////////");
-
-        //Déclaration stats
-        Stats stat1 = new Stats(0);
-        Stats stat2 = new Stats(9862);
-
-        stat1.afficher(); //affichage 0
-        stat2.afficher();
-        System.out.println("/////////declaration partie//////////////////////////////////////////////////");
-
-        //Déclaration partie
-        Partie partie1 = new Partie(date, Partie.ModeDeJeu.APPRENDRE_A_JOUER);
-        Partie partie2 = new Partie(date, Partie.ModeDeJeu.MULTI);
-
-        Set<Partie> partieTest = new HashSet(0);
-        partie1.afficher(); //affichage 0-null-null
-        partie2.afficher();//affichage 1-date du moment-null
-
-        partieTest.add(partie2);
-
-        mb1.setParties(partieTest);
-        mb2.setParties(partieTest);
-        mb3.setParties(partieTest);
-
-        Set<Membre> membrePartieTest = new HashSet(0);
-        membrePartieTest.add(mb1);
-        membrePartieTest.add(mb2);
-        membrePartieTest.add(mb3);
-
-        partie2.setMembres(membrePartieTest);
-
-        partie2.afficherAllMembresPartie();
-
-        System.out.println("Bravo ! : " + mb1.nbPartie() + " jouées");
-
-        Partie.afficherModeDeJeu();
-
-        System.out.println("/////////declaration mode de jeu//////////////////////////////////////////////////");
-
-        //Déclaration mode de jeu
-        System.out.println("/////////declaration commande//////////////////////////////////////////////////");
-
-        //Déclaration commande
-        Commande cde1 = new Commande(102, date);
-        Commande cde2 = new Commande(213, date);
-        Commande cde3 = new Commande(154, date);
-
-        System.out.println("/////////declaration details//////////////////////////////////////////////////");
-
-        //Déclaration details
-        Details detail1 = new Details(190, 5);
-        Details detail2 = new Details(999, 3);
-
-        detail1.afficher(); //affichage 190-5
-        detail2.afficher();
-
-        System.out.println("/////////declaration produit//////////////////////////////////////////////////");
-
-        //Déclaration produits
-        Produits produit1 = new Produits("tablette", 190, "samsung v2, 1go");
-        Produits produit2 = new Produits("macbook air", 999, "version 10, 32go");
-        Produits produit3 = new Produits("air", 2999, "10, 132go");
-        Produits produit4 = new Produits("mars", 1999, "version 0, 22232go");
-
-        Set<Produits> pdt = new HashSet(0);
-        pdt.add(produit1);
-        pdt.add(produit2);
-        pdt.add(produit3);
-        cde1.setProduits(pdt);
-        cde1.afficherProduits();
-        System.out.println("Total : " + cde1.totalCommande() + " $");
-
-        System.out.println("///////// CD1 //////////////////////////////////////////////////");
-
-        Set<Produits> pdt2 = new HashSet(0);
-        pdt2.add(produit4);
-        cde2.setProduits(pdt2);
-        cde2.afficherProduits();
-        System.out.println("///////// CD2 //////////////////////////////////////////////////");
-
-        Set<Commande> mesAchats = new HashSet(0);
-        mesAchats.add(cde1);
-        mb1.setCommandes(mesAchats);
-
-        Set<Commande> mesAchat2 = new HashSet(0);
-        mesAchat2.add(cde2);
-        mesAchat2.add(cde3);
-        mb2.setCommandes(mesAchat2);
-
-        mb1.afficherMesAchats();
-        System.out.println("/////////la faute//////////////////////////////////////////////////");
-        mb2.afficherMesAchats();
-
-        System.out.println("Total : " + mb1.totalAchats() + " $");
-        System.out.println("Total : " + mb2.totalAchats() + " $");
+    public static void separateur(String val) {
+        System.out.println("********** " + val + " **********");
     }
 
+    public static void main(String[] args) {
+        initAll();
+    }
+
+    public static void initAll() {
+        initAdmin();
+        initMembre();
+        //initBillet();
+        //initMessage();
+        //initAmi();
+        //initCommande();
+        //initProduits();
+        //initDetail();
+//        initStat();
+        initPartie();
+
+    }
+
+    public static void initAdmin() {
+        separateur("Création des Admins");
+        //Déclaration admin        
+        Admin admin1 = new Admin("Bouchard", "Stephane", null);
+        Admin admin2 = new Admin("Gervais", "Patrick", null);
+        Admin admin3 = new Admin("Proulx", "Gabriel", null);
+        Admin admin4 = new Admin("Perre", "Thomas", null);
+
+        listeAdmin.put(admin1.getNoAdmin(), admin1);
+        listeAdmin.put(admin2.getNoAdmin(), admin2);
+        listeAdmin.put(admin3.getNoAdmin(), admin3);
+        listeAdmin.put(admin4.getNoAdmin(), admin4);
+
+        listeAdmin.entrySet().forEach(val -> {
+            val.getValue().afficherNewAdmin();
+        });
+    }
+
+    public static void initMembre() {
+        //Déclaration membre
+        separateur("Création des Membres");
+        //String avatar, String surnom, String email, String nom, String prenom
+        Membre mb1 = new Membre("mb1.png", "Conquete", "mb1@java.ca", "Cheval", "Blanc");
+        Membre mb2 = new Membre("mb2.png", "Guerre", "mb2@java.ca", "Cheval", "Rouge");
+        Membre mb3 = new Membre("mb3.png", "Famine", "mb3@java.ca", "Cheval", "Noir");
+        Membre mb4 = new Membre("mb4.png", "Mort", "mb4@java.ca", "Cheval", "Pale");
+        mb1.setNbCredit(900); // MAJ des crédits d'un joueur
+
+        listeMembres.put(mb1.getNoMembre(), mb1);
+        listeMembres.put(mb2.getNoMembre(), mb2);
+        listeMembres.put(mb3.getNoMembre(), mb3);
+        listeMembres.put(mb4.getNoMembre(), mb4);
+
+        listeMembres.entrySet().forEach(val -> {
+            val.getValue().afficherNewMembre();
+        });
+
+    }
+
+    public static void initBillet() {
+        //Déclaration billet
+        separateur("Création Billet");
+        Billet bn1 = new Billet(globalDate, null);
+        Billet bn2 = new Billet(globalDate, null);
+        Billet bn3 = new Billet(globalDate, null);
+        Billet bn4 = new Billet(globalDate, null);
+        Billet bn5 = new Billet(globalDate, null);
+        Billet bn6 = new Billet(globalDate, null);
+
+        listeBillet.put(bn1.getNoBillet(), bn1);
+        listeBillet.put(bn2.getNoBillet(), bn2);
+        listeBillet.put(bn3.getNoBillet(), bn3);
+        listeBillet.put(bn4.getNoBillet(), bn4);
+        listeBillet.put(bn5.getNoBillet(), bn5);
+        listeBillet.put(bn6.getNoBillet(), bn6);
+
+        listeBillet.entrySet().forEach(val -> {
+            val.getValue().afficherNewBillet();
+        });
+
+    }
+
+    public static void initMessage() {
+        //Déclaration message
+        separateur("Création Message");
+
+        Message msg1 = new Message("messageMembre message3", "reponseAdmin message3", listeMembres.get(3), listeBillet.get(1), listeAdmin.get(3));
+        Message msg2 = new Message("messageMembre message7", "reponseAdmin message7", listeMembres.get(4), listeBillet.get(3), listeAdmin.get(2));
+        Message msg3 = new Message("messageMembre message8", "reponseAdmin message8", listeMembres.get(4), listeBillet.get(5), listeAdmin.get(4));
+
+        listeMessages.put(1, msg1);
+        listeMessages.put(2, msg2);
+        listeMessages.put(3, msg3);
+
+        listeMessages.entrySet().forEach(val -> {
+            val.getValue().afficherMessageComplet();
+        });
+
+        // Affichage des messages et réponses seulement
+//        listeMessage.entrySet().forEach(val -> {
+//            val.getValue().afficherMessageMembre();
+//            val.getValue().afficherReponseAdmin();
+//        });
+    }
+
+    public static void initAmi() {
+        //Déclaration ami
+        separateur("Création des demandes Amis");
+
+        Ami ami1 = new Ami(globalDate, false, listeMembres.get(1));
+        Ami ami2 = new Ami(globalDate, false, listeMembres.get(2));
+        Ami ami3 = new Ami(globalDate, false, listeMembres.get(3));
+        Ami ami4 = new Ami(globalDate, false, listeMembres.get(4));
+
+        listeAmis.put(1, ami1);
+        listeAmis.put(2, ami2);
+        listeAmis.put(3, ami3);
+        listeAmis.put(4, ami4);
+
+        listeAmis.entrySet().forEach(val -> {
+            val.getValue().afficherDemandeAmi();
+        });
+
+        listeMembres.get(1).ajoutDemandeAmi(ami2);
+        listeMembres.get(2).ajoutDemandeAmi(ami3);
+        listeMembres.get(3).ajoutDemandeAmi(ami4);
+        listeMembres.get(4).ajoutDemandeAmi(ami1);
+
+        listeMembres.entrySet().forEach(val -> {
+            val.getValue().afficherAllDemandesEnAttente();
+            //val.getValue().afficherAllAmis();
+        });
+
+        listeMembres.get(4).supprimerDemandeAmi(ami1);
+        listeMembres.entrySet().forEach(val -> {
+            val.getValue().afficherAllDemandesEnAttente();
+        });
+
+        listeMembres.get(4).ajoutAmi(ami1);
+        listeMembres.entrySet().forEach(val -> {
+            val.getValue().afficherAllAmis();
+        });
+
+    }
+
+    public static void initCommande() {
+        //Déclaration commande
+        separateur("Création des Commandes");
+        Commande cde1 = new Commande(globalDate, listeMembres.get(1));
+        Commande cde2 = new Commande(globalDate, listeMembres.get(1));
+        Commande cde3 = new Commande(globalDate, listeMembres.get(2));
+
+        listeCommandes.put(cde1.getNoCommande(), cde1);
+        listeCommandes.put(cde2.getNoCommande(), cde2);
+        listeCommandes.put(cde3.getNoCommande(), cde3);
+
+        listeMembres.get(1).ajoutCommande(listeCommandes.get(1));
+        listeMembres.get(1).ajoutCommande(listeCommandes.get(2));
+        listeMembres.get(2).ajoutCommande(listeCommandes.get(3));
+
+        listeCommandes.entrySet().forEach(val -> {
+            val.getValue().afficherCommande();
+        });
+
+    }
+
+    public static void initProduits() {
+        //Déclaration produits
+        separateur("Création des Produits");
+        Produits produit1 = new Produits("Crédit", "Monnaie du jeu", 1.00);
+        Produits produit2 = new Produits("Familier Chien", "Chien à 3 têtes", 10.00);
+        Produits produit3 = new Produits("Chapeau melon", "Look génial, film affreux", 5.00);
+        Produits produit4 = new Produits("Avatar Virus", "Promotion 2020", 2.50);
+
+        listeProduits.put(produit1.getNoProduit(), produit1);
+        listeProduits.put(produit2.getNoProduit(), produit2);
+        listeProduits.put(produit3.getNoProduit(), produit3);
+        listeProduits.put(produit4.getNoProduit(), produit4);
+
+        listeProduits.entrySet().forEach(val -> {
+            val.getValue().afficherProduit();
+        });
+
+    }
+
+    public static void initDetail() {
+        //Déclaration details
+        separateur("Création d'une commande - Détail");
+        Details detail1 = new Details(listeCommandes.get(1), listeProduits.get(1), 5, listeProduits.get(1).getPrixProduit());
+        Details detail2 = new Details(listeCommandes.get(1), listeProduits.get(2), 5, listeProduits.get(2).getPrixProduit());
+        Details detail3 = new Details(listeCommandes.get(1), listeProduits.get(3), 5, listeProduits.get(3).getPrixProduit());
+        Details detail4 = new Details(listeCommandes.get(2), listeProduits.get(3), 5, listeProduits.get(3).getPrixProduit());
+        Details detail5 = new Details(listeCommandes.get(2), listeProduits.get(4), 5, listeProduits.get(4).getPrixProduit());
+        Details detail6 = new Details(listeCommandes.get(3), listeProduits.get(4), 15, listeProduits.get(1).getPrixProduit() + 10.00);
+
+        listeDetail.put(1, detail1);
+        listeDetail.put(2, detail2);
+        listeDetail.put(3, detail3);
+        listeDetail.put(4, detail4);
+        listeDetail.put(5, detail5);
+        listeDetail.put(6, detail6);
+
+        listeCommandes.get(1).ajoutCommandeDetail(listeDetail.get(1));
+        listeCommandes.get(1).ajoutCommandeDetail(listeDetail.get(6));
+
+        listeCommandes.get(1).afficherProduitsCommande();
+        listeCommandes.get(2).afficherProduitsCommande();
+        listeCommandes.get(3).afficherProduitsCommande();
+
+        System.out.println("*** APRES SUPPRESSION ***");
+        listeCommandes.get(1).supprimerCommandeDetail(listeDetail.get(1));
+        //listeCommandes.get(1).supprimerCommandeDetail(listeDetail.get(6));
+        listeCommandes.get(1).afficherProduitsCommande();
+
+        System.out.println("*** TOTAL ACHATS MEMBRES ***");
+        listeMembres.entrySet().forEach(val -> {
+            val.getValue().afficherTotalAchats();
+        });
+
+    }
+
+    public static void initPartie() {
+        //Déclaration partie
+        separateur("Création Partie");
+        Partie partie1 = new Partie(globalDate, EnumModedeJeu.Apprendre_A_Jouer);
+        Partie partie2 = new Partie(globalDate, EnumModedeJeu.Multi);
+        Partie partie3 = new Partie(globalDate, EnumModedeJeu.Solo);
+
+        listePartie.put(partie1.getNoPartie(), partie1);
+        listePartie.put(partie2.getNoPartie(), partie2);
+        listePartie.put(partie3.getNoPartie(), partie3);
+
+        listePartie.entrySet().forEach(val -> {
+            val.getValue().afficherPartie();
+        });
+
+        listeMembres.get(1).addPartie(partie1);
+        listeMembres.get(2).addPartie(partie2);
+        listeMembres.get(3).addPartie(partie2);
+        listeMembres.get(4).addPartie(partie2);
+        listeMembres.get(1).addPartie(partie3);
+        
+        listeMembres.entrySet().forEach(val -> {
+            val.getValue().afficherPartie();
+            System.out.println("Nb partie(s): " + val.getValue().nbPartie());            
+        });        
+
+        Partie.afficherModeDeJeu();
+    }
+
+//    public static void initStat() {
+//        //Déclaration stats
+//        separateur("Création Stats");
+//        Stats stat1 = new Stats(0);
+//        Stats stat2 = new Stats(9862);
+//
+//        stat1.afficher(); //affichage 0
+//        stat2.afficher();
+//    }
 }

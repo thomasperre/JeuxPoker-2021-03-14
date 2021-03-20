@@ -1,51 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import static jeuxpoker.utilitaires.retourDate;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Billet {
-    
+
     //attributs
-    private static int nextNoBillet=1;
+    private static int nextNoBillet = 1;
     private int noBillet;
     private Date dateBillet;
-    private Set<Message> messages= new HashSet(0);
-    
-    
+    private Set<Message> messages = new HashSet(0);
+
     //constructeurs
-
-    public Billet() {
-        noBillet=nextNoBillet;
-        nextNoBillet++;
-    }
-
-    public Billet( Date dateBillet) {
-        
-        this.dateBillet = dateBillet;
-        noBillet=nextNoBillet++;
-    }
-
     public Billet(Date dateBillet, Set<Message> messages) {
-        
-        this.dateBillet = dateBillet;
-        this.messages=messages;
-        noBillet=nextNoBillet++;
-    }
-     
-    
-    //getter-setter
 
-    
+        this.dateBillet = dateBillet;
+        this.messages = messages;
+        this.noBillet = nextNoBillet++;
+    }
+
+    //getter-setter
     public int getNoBillet() {
         return noBillet;
     }
@@ -58,7 +38,6 @@ public class Billet {
         return messages;
     }
 
-    
     public void setNoBillet(int noBillet) {
         this.noBillet = noBillet;
     }
@@ -70,10 +49,10 @@ public class Billet {
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
-    
-public void afficher(){
-        System.out.println(this.noBillet +"-"+ this.dateBillet+"-"+ this.messages );
-        
+
+    public void afficherNewBillet() {
+        System.out.print("Nouveau billet: " + this.noBillet);
+        System.out.println(" | Date du: " + retourDate(this.dateBillet));
     }
-    
+
 }

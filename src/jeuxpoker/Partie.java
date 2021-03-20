@@ -1,38 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Partie {
 
     //attributs
-    enum ModeDeJeu {
-        SOLO,
-        APPRENDRE_A_JOUER,
-        MULTI
-    }
-
     private int noPartie;
     private static int NextNoPartie = 1;
     private Date datePartie;
-    private ModeDeJeu modeDeJeu;
-    private Set<Membre> membres = new HashSet(0);
+    private EnumModedeJeu modeDeJeu;
+    private List<Membre> membres;
 
     //constructeurs
-    public Partie(Date datePartie, ModeDeJeu modeDeJeu) {
+    public Partie(Date datePartie, EnumModedeJeu modeDeJeu) {
+        noPartie = NextNoPartie++;
         this.datePartie = datePartie;
         this.modeDeJeu = modeDeJeu;
-        noPartie = NextNoPartie++;
+        membres = new ArrayList();
     }
 
     public int getNoPartie() {
@@ -43,15 +33,11 @@ public class Partie {
         return datePartie;
     }
 
-    public Set<Membre> getMembres() {
-        return membres;
-    }
-
-    public ModeDeJeu getModeDeJeu() {
+    public EnumModedeJeu getModeDeJeu() {
         return modeDeJeu;
     }
 
-    public void setModeDeJeu(ModeDeJeu modeDeJeu) {
+    public void setModeDeJeu(EnumModedeJeu modeDeJeu) {
         this.modeDeJeu = modeDeJeu;
     }
 
@@ -59,11 +45,22 @@ public class Partie {
         this.datePartie = datePartie;
     }
 
-    public void setMembres(Set<Membre> membres) {
+    public List<Membre> getMembres() {
+        return membres;
+    }
+
+    public void setMembres(List<Membre> membres) {
         this.membres = membres;
     }
 
-    public void afficher() {
+    public void addMembre(Membre m) {
+        if (!membres.contains(m)) {
+            membres.add(m);
+            m.addPartie(this);
+        }
+    }
+
+    public void afficherPartie() {
         System.out.println(this.noPartie + "-" + this.datePartie + "-" + this.modeDeJeu);
 
     }
@@ -72,14 +69,15 @@ public class Partie {
         System.out.println("/////////ALL membres partie//////////////////////////////////////////////////");
         System.out.println("No partie : " + this.getNoPartie());
         this.getMembres().forEach(item -> {
-            System.out.print("| " + item.getNom()+ "| \t");
+            System.out.print("| " + item.getNom() + "| \t");
         });
         System.out.println("");
     }
 
     public static void afficherModeDeJeu() {
-        for (ModeDeJeu val : ModeDeJeu.values()) {
+        for (EnumModedeJeu val : EnumModedeJeu.values()) {
             System.out.println(val);
         }
     }
+
 }

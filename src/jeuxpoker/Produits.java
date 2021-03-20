@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 import java.util.HashSet;
@@ -10,7 +5,7 @@ import java.util.Set;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Produits {
     //attributs
@@ -18,17 +13,17 @@ public class Produits {
     private int noProduit;
     private static int nextNoProduit = 1;
     private String nomProduit;
-    private int prixProduit;
+    private double prixProduit;
     private String description;
-    private Set<Commande> commandes = new HashSet(0);
+    private Set<Details> details;
 
     //constructeurs
-    public Produits(String nomProduit, int prixProduit, String description) {
-        this.nomProduit = nomProduit;
-        this.prixProduit = prixProduit;
-        this.description = description;
+    public Produits(String nomProduit, String description, double prixProduit) {
         noProduit = nextNoProduit++;
-
+        this.nomProduit = nomProduit;
+        this.description = description;
+        this.prixProduit = prixProduit;
+        this.details = new HashSet();
     }
 
     //getter-setter
@@ -49,7 +44,7 @@ public class Produits {
         this.nomProduit = nomProduit;
     }
 
-    public int getPrixProduit() {
+    public double getPrixProduit() {
         return prixProduit;
     }
 
@@ -65,20 +60,12 @@ public class Produits {
         this.description = description;
     }
 
-    public Set<Commande> getCommandes() {
-        return commandes;
-    }
-
-    public void setCommandes(Set<Commande> commandes) {
-        this.commandes = commandes;
-    }
-
     public int getNoProduit() {
         return noProduit;
     }
 
-    public void afficher() {
-        System.out.println(this.noProduit + "-" + this.nomProduit + "-" + this.prixProduit + "-" + this.description);
 
+    public void afficherProduit() {
+        System.out.println("Produit no: " + this.noProduit + " | " + this.nomProduit + " | " + this.description);
     }
 }

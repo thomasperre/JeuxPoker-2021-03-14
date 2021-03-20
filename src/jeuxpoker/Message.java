@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
-
-import java.util.Set;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Message {
 
@@ -101,17 +94,25 @@ public class Message {
     }
 
     //méthode
-    public void afficher() {
-        System.out.println(this.reponseAdmin + "-" + this.getAdmin());
+    public void afficherMessageComplet() {
+        System.out.println("********** " + "Billet numéro: " + this.getBillet().getNoBillet() + " **********");
+        System.out.println("Membre: " + this.getMembre().nom + " " + this.getMembre().prenom);
+        System.out.println("Message: " + this.getContenuMessage());
+        System.out.println("Admin: " + this.getAdmin().nom + " " + this.getAdmin().prenom);
+        System.out.println("Réponse: " + this.getReponseAdmin());
+        System.out.println("**********");
     }
 
-    public static void afficherMessage(Set<Message> msg) {
+    public void afficherMessageMembre() {
+        System.out.println("Membre: " + this.getMembre().nom + " " + this.getMembre().prenom);
+        System.out.println("Message: " + this.getContenuMessage());
+        System.out.println("Billet numéro: " + this.getBillet().getNoBillet());
+    }
 
-        msg.forEach(item -> {
-            System.out.println("| " + item.getContenuMessage() + "|" + item.getReponseAdmin());
-            System.out.println(item.getMembre().nom + "|" + item.getAdmin().nom);
-            System.out.println(item.getBillet().getNoBillet());
-        });
+    public void afficherReponseAdmin() {
+        System.out.println("Admin: " + this.getAdmin().nom + " " + this.getAdmin().prenom);
+        System.out.println("Réponse: " + this.getReponseAdmin());
+        System.out.println("Billet numéro: " + this.getBillet().getNoBillet());
     }
 
 }

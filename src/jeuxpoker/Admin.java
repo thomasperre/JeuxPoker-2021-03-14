@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuxpoker;
 
 import java.util.HashSet;
@@ -10,7 +5,7 @@ import java.util.Set;
 
 /**
  *
- * @author thomas
+ * @author Equipe 5
  */
 public class Admin extends Personne {
     //attributs
@@ -23,8 +18,7 @@ public class Admin extends Personne {
     public Admin(String nom, String prenom, Set<Message> messages) {
         super(nom, prenom);
         this.messages = messages;
-        noAdmin = nextNoAdmin++;
-
+        this.noAdmin = nextNoAdmin++;
     }
 
     //getter-setter
@@ -50,25 +44,9 @@ public class Admin extends Personne {
         this.messages = messages;
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public void afficher() {
-        System.out.println(this.noAdmin + "-" + this.messages);
-        super.afficher();
+    public void afficherNewAdmin() {
+        System.out.print("Nouvel admin: " + this.noAdmin);
+        System.out.println(" | Nom, prénom: " + this.nom + " " + this.prenom);
     }
 
 }
