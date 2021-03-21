@@ -38,21 +38,21 @@ public class JeuxPoker {
 //        initBillet();
 //        initMessage();
 //        initAmi();
-//        initCommande();
-//        initProduits();
-//        initDetail();
+        initCommande();
+        initProduits();
+        initDetail();
 
-        initPartie();
-        initStat();
+//        initPartie();
+//        initStat();
     }
 
     public static void initAdmin() {
         separateur("Création des Admins");
         //Déclaration admin        
-        Admin admin1 = new Admin("Bouchard", "Stephane", null);
-        Admin admin2 = new Admin("Gervais", "Patrick", null);
-        Admin admin3 = new Admin("Proulx", "Gabriel", null);
-        Admin admin4 = new Admin("Perre", "Thomas", null);
+        Admin admin1 = new Admin("Bouchard", "Stephane");
+        Admin admin2 = new Admin("Gervais", "Patrick");
+        Admin admin3 = new Admin("Proulx", "Gabriel");
+        Admin admin4 = new Admin("Perre", "Thomas");
 
         listeAdmin.put(admin1.getNoAdmin(), admin1);
         listeAdmin.put(admin2.getNoAdmin(), admin2);
@@ -228,12 +228,23 @@ public class JeuxPoker {
         listeDetail.put(5, detail5);
         listeDetail.put(6, detail6);
 
-        listeCommandes.get(1).ajoutCommandeDetail(listeDetail.get(1));
-        listeCommandes.get(1).ajoutCommandeDetail(listeDetail.get(6));
+        listeCommandes.get(1).ajoutDetail(listeDetail.get(1));
+        listeCommandes.get(1).ajoutDetail(listeDetail.get(2));
+        listeCommandes.get(1).ajoutDetail(listeDetail.get(3));
+        listeCommandes.get(2).ajoutDetail(listeDetail.get(4));
+        listeCommandes.get(2).ajoutDetail(listeDetail.get(5));
+        listeCommandes.get(3).ajoutDetail(listeDetail.get(6));
 
         listeCommandes.get(1).afficherProduitsCommande();
         listeCommandes.get(2).afficherProduitsCommande();
         listeCommandes.get(3).afficherProduitsCommande();
+
+        listeProduits.get(1).ajoutDetail(listeDetail.get(1));
+        listeProduits.get(2).ajoutDetail(listeDetail.get(2));
+        listeProduits.get(3).ajoutDetail(listeDetail.get(3));
+        listeProduits.get(3).ajoutDetail(listeDetail.get(4));
+        listeProduits.get(4).ajoutDetail(listeDetail.get(5));
+        listeProduits.get(4).ajoutDetail(listeDetail.get(6));
 
         //System.out.println("*** APRES SUPPRESSION ***");
         //listeCommandes.get(1).supprimerCommandeDetail(listeDetail.get(1));
@@ -243,7 +254,14 @@ public class JeuxPoker {
         listeMembres.entrySet().forEach(val -> {
             val.getValue().afficherTotalAchats();
         });
-
+        System.out.println("*** LISTE PRODUITS DETAILS ***");
+        listeProduits.entrySet().forEach(val -> {
+            val.getValue().afficherDetails();
+        });
+        System.out.println("*** LISTE COMMANDES DETAILS ***");
+        listeCommandes.entrySet().forEach(val -> {
+            val.getValue().afficherDetails();
+        });
     }
 
     public static void initPartie() {

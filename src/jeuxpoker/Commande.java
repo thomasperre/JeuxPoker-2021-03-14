@@ -81,12 +81,12 @@ public class Commande {
         return resultat;
     }
 
-    public void ajoutCommandeDetail(Details d) {
+    public void ajoutDetail(Details d) {
         details.add(d);
         d.setCommandes(this);
     }
 
-    public void supprimerCommandeDetail(Details d) {
+    public void supprimerDetail(Details d) {
         details.remove(d);
         d.setCommandes(null);
     }
@@ -104,16 +104,21 @@ public class Commande {
                 System.out.print("Produit no: " + item.getProduits().getNoProduit() + " | " + item.getProduits().getNomProduit() + " | " + item.getProduits().getDescription());
                 System.out.println(" | Prix achat: " + item.getPrixAchat() + " | Quantité: " + item.getQutAchat());
             });
-        } else {
-//            System.out.println("********** No: " + this.noCommande + " du " + retourDate(this.getDateCommande()) + " **********");
-//            System.out.println("Aucun produit");
         }
     }
 
     public double totalCommande() {
 
-        double somme = this.getDetails().stream().mapToDouble(p -> p.getPrixAchat()*p.getQutAchat()).sum();        
+        double somme = this.getDetails().stream().mapToDouble(p -> p.getPrixAchat() * p.getQutAchat()).sum();
         return somme;
+    }
+
+    public void afficherDetails() {
+        this.getDetails().forEach(item -> {
+            System.out.print("Commande no:" + item.getCommandes().getNoCommande());
+            System.out.print(" | Produit no: " + item.getProduits().getNoProduit() + " | " + item.getProduits().getNomProduit() + " | " + item.getProduits().getDescription());
+            System.out.println(" | Prix achat: " + item.getPrixAchat() + " | Quantité: " + item.getQutAchat());
+        });
     }
 
 }

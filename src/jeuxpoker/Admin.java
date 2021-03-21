@@ -12,13 +12,14 @@ public class Admin extends Personne {
 
     private int noAdmin;
     private static int nextNoAdmin = 1;
-    private Set<Message> messages = new HashSet(0);
+    private Set<Message> messages;
 
     //constructeurs
-    public Admin(String nom, String prenom, Set<Message> messages) {
+    public Admin(String nom, String prenom) {
         super(nom, prenom);
-        this.messages = messages;
+
         this.noAdmin = nextNoAdmin++;
+        this.messages = new HashSet();
     }
 
     //getter-setter
